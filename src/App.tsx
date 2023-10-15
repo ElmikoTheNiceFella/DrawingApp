@@ -10,7 +10,7 @@ type Draw = {
 type Point = { x: number; y: number };
 
 function App() {
-  const { canvasRef } = useDraw(drawLine);
+  const { canvasRef, onMouseDown } = useDraw(drawLine);
 
   function drawLine({ prevPoint, currentPoint, ctx }: Draw) {
     const { x: currentX, y: currentY } = currentPoint;
@@ -32,6 +32,7 @@ function App() {
   return (
     <div className="h-screen grid place-content-center">
       <canvas
+        onMouseDown={onMouseDown}
         ref={canvasRef}
         width={700}
         height={500}
