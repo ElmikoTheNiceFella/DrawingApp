@@ -1,5 +1,6 @@
 import "./App.css";
 import { useDraw } from "./hooks/useDraw";
+import {useState} from 'react';
 
 type Draw = {
   ctx: CanvasRenderingContext2D;
@@ -10,6 +11,11 @@ type Draw = {
 type Point = { x: number; y: number };
 
 function App() {
+
+  const colors = ["#f56056", "#000", ""];
+
+  const [color, setColor] = useState("#000")
+
   const { canvasRef, onMouseDown } = useDraw(drawLine);
 
   function drawLine({ prevPoint, currentPoint, ctx }: Draw) {
@@ -18,12 +24,12 @@ function App() {
 
     ctx.beginPath();
     ctx.lineWidth = 5;
-    ctx.strokeStyle = "#000";
+    ctx.strokeStyle = color;
     ctx.moveTo(startPoint.x, startPoint.y);
     ctx.lineTo(currentX, currentY);
     ctx.stroke();
 
-    ctx.fillStyle = "#000";
+    ctx.fillStyle = color;
     ctx.beginPath();
     ctx.arc(startPoint.x, startPoint.y, 2, 0, 2 * Math.PI);
     ctx.fill();
@@ -38,6 +44,7 @@ function App() {
         height={500}
         className="border-2 border-black"
       />
+      <div onClick={() => setColor("#505050")} className="w-24 h-24 bg-[#505050]"></div>
     </div>
   );
 }
