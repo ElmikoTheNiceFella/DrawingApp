@@ -96,7 +96,7 @@ function App() {
       <div className="flex mt-4 gap-8">
         {sizes.map(size => (
           <button key={"size"+size} onClick={() => setSize(size)} className="flex items-center">
-            <label className="mx-4">{size}</label>
+            <strong className="mx-4">{size}</strong>
             <span style={{
               width: size*2+"px",
               height: size*2+"px"
