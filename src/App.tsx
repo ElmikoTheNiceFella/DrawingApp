@@ -1,6 +1,6 @@
 import "./App.css";
 import { useDraw } from "./hooks/useDraw";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 type Draw = {
   ctx: CanvasRenderingContext2D;
