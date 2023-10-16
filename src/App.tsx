@@ -74,6 +74,7 @@ function App() {
       <div id="buttons" className="flex w-[700px] m-auto justify-center">
         {colors.map(color => 
           <button
+            key={color}
             onClick={() => setColor(color)}
             style={{ backgroundColor: color }}
             className="w-24 h-24"
@@ -94,7 +95,7 @@ function App() {
       </div>
       <div className="flex mt-4 gap-8">
         {sizes.map(size => (
-          <button onClick={() => setSize(size)} className="flex items-center">
+          <button key={"size"+size} onClick={() => setSize(size)} className="flex items-center">
             <label className="mx-4">{size}</label>
             <span style={{
               width: size*2+"px",
