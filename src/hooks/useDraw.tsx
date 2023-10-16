@@ -7,10 +7,9 @@ type Draw = {
 };
 
 type Point = { x: number; y: number };
+type Func = ({ ctx, currentPoint, prevPoint }: Draw) => void;
 
-export const useDraw = (
-  onDraw: ({ ctx, currentPoint, prevPoint }: Draw) => void
-) => {
+export const useDraw = (onDraw: Func) => {
   const [mouseDown, setMouseDown] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const prevPoint = useRef<Point | null>(null);
@@ -19,6 +18,11 @@ export const useDraw = (
   const onMouseUp = () => {
     setMouseDown(false);
     prevPoint.current = null;
+  };
+
+  const clear = () => {
+    const ctx = canvasRef.current?.getContext('2d') as CanvasRenderingContext2D;
+    ctx.clearRect(0,0,700,500);
   }
 
   useEffect(() => {
@@ -42,13 +46,13 @@ export const useDraw = (
     };
 
     canvasRef.current?.addEventListener("mousemove", handler);
-    window.addEventListener('mouseup', onMouseUp);
-    
+    window.addEventListener("mouseup", onMouseUp);
+
     return () => {
-      canvasRef.current?.removeEventListener("mousemove", handler)
-      window.removeEventListener('mouseup', onMouseUp)
-    }
+      canvasRef.current?.removeEventListener("mousemove", handler);
+      window.removeEventListener("mouseup", onMouseUp);
+    };
   }, [onDraw]);
 
-  return { canvasRef, onMouseDown };
+  return { canvasRef, onMouseDown, clear };
 };
